@@ -1,0 +1,21 @@
+{
+    "name": "PCF85063A",
+    "version": "1.0.0",
+    "description": "A library for the PCF85063A RTC chip",
+    "keywords": "rtc, pcf85063a, clock, time, date",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/Codecroc/PCF85063A"
+    },
+    "authors":
+    [
+      {
+        "name": "Philipp Köhler"
+      }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/Codecroc/PCF85063A",
+    "frameworks": "arduino",
+    "platforms": "avr, esp8266, esp32"
+  }
