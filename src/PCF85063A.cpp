@@ -1,12 +1,11 @@
 #include "PCF85063A.hpp"
-#include <Arduino.h>
 
 void PCF85063A::begin()
 {
     Wire.begin();
 }
 
-void PCF85063A::begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency = 400000)
+void PCF85063A::begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency)
 {
     Wire.begin(sda, scl, frequency);
 }

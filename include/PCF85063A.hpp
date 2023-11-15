@@ -1,5 +1,7 @@
 #pragma once
+#include <Arduino.h>
 #include <Wire.h>
+
 
 #define PCF85063A_ADDRESS 0x51
 #define PCF85063A_REG_CONTROL_1 0x00
