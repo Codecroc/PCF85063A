@@ -205,7 +205,7 @@ uint8_t PCF85063A::getOS(byte &value)
     error = Wire.endTransmission();
     Wire.requestFrom(PCF85063A_ADDRESS, 1);
     value = Wire.read() & 0b10000000;
-    return errror;
+    return error;
 }
 
 uint8_t PCF85063A::getTime(uint8_t &seconds, uint8_t &minutes, uint8_t &hours, uint8_t &days, PCF85063A_WEEKDAYS_t &weekdays, uint8_t &months, uint8_t &years)
