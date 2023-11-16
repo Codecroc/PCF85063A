@@ -53,16 +53,21 @@ public:
     void begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency = 400000);
 
     /**
+     * End I2C connection
+    */
+    void end();
+
+    /**
      * Set the time for the RTC
     */
-    void setTime(uint8_t seconds, uint8_t minutes, uint8_t hours, uint8_t days, PCF85063A_WEEKDAYS_t weekdays, uint8_t months, uint8_t years);
+    uint8_t setTime(uint8_t seconds, uint8_t minutes, uint8_t hours, uint8_t days, PCF85063A_WEEKDAYS_t weekdays, uint8_t months, uint8_t years);
     
     /**
      * Set the alarm for the RTC
      * The alarm is only set but not enabled
      * To enable use the enableAlarm() function
     */
-    void setAlarm(uint8_t seconds, uint8_t minutes, uint8_t hours, uint8_t days, PCF85063A_WEEKDAYS_t weekdays);
+    uint8_t setAlarm(uint8_t seconds, uint8_t minutes, uint8_t hours, uint8_t days, PCF85063A_WEEKDAYS_t weekdays);
     
     /**
      * Set a timer value and mode
@@ -71,7 +76,7 @@ public:
      * Mode Bit 2: timer enable -> 0: disable, 1: enable
      * Mode Bit 3-4: time clock frequency -> 00: 4096Hz, 01: 64Hz, 10: 1Hz, 11: 1/60Hz
     */
-    void setTimer(uint8_t timerValue, uint8_t timerMode);
+    uint8_t setTimer(uint8_t timerValue, uint8_t timerMode);
 
     /**
      * * Mode Bit 0: timer interrupt mode -> 0: flag, 1: pulse
@@ -79,7 +84,7 @@ public:
      * Mode Bit 2: timer enable -> 0: disable, 1: enable
      * Mode Bit 3-4: time clock frequency -> 00: 4096Hz, 01: 64Hz, 10: 1Hz, 11: 1/60Hz
     */    
-    void setTimerMode(uint8_t timerMode);
+    uint8_t setTimerMode(uint8_t timerMode);
 
     /**
      * Set the offset register
@@ -87,7 +92,7 @@ public:
      *                1 course mode: offset is made every 4 minutes
      * Bit 6-0: Offset -> 2's complement value
     */
-    void setOffset(byte mode, int8_t offset);
+    uint8_t setOffset(byte mode, int8_t offset);
 
     /**
      * Set the control register 1
@@ -106,7 +111,7 @@ public:
      * Bit 0: CAP_SEL ->  0: 7pf
      *                    1: 12.5pf
     */
-    void setControl1(uint8_t control1);
+    uint8_t setControl1(uint8_t control1);
 
     /**
      * Set the control register 2
@@ -120,27 +125,28 @@ public:
      * Bit 3: TF    ->  timer flag
      * Bit 2 to 0:  ->  CLKOUT frequency
     */
-    void setControl2(uint8_t control2);
+    uint8_t setControl2(uint8_t control2);
 
     /**
      * Set the ram register value
     */
-    void setRam(uint8_t value);
+    uint8_t setRam(uint8_t value);
 
     /**
      * Enable the alarm
      * LSB for seconds, ..., MSB for weekdays
     */
-    void enableAlarm(uint8_t enable);
+    uint8_t enableAlarm(uint8_t enable);
+    uint8_t clearOS();
 
-    void getTime(uint8_t &seconds, uint8_t &minutes, uint8_t &hours, uint8_t &days, PCF85063A_WEEKDAYS_t &weekdays, uint8_t &months, uint8_t &years);
-    void getRam(uint8_t &value);
-    void getControl1(uint8_t &value);
-    void getControl2(uint8_t &value);
-    void getOffset(byte &mode, int8_t &value);
-    void getTimerMode(uint8_t &value);
-    void getTimerValue(uint8_t &value);
-    void getOS(byte &value);
+    uint8_t getTime(uint8_t &seconds, uint8_t &minutes, uint8_t &hours, uint8_t &days, PCF85063A_WEEKDAYS_t &weekdays, uint8_t &months, uint8_t &years);
+    uint8_t getRam(uint8_t &value);
+    uint8_t getControl1(uint8_t &value);
+    uint8_t getControl2(uint8_t &value);
+    uint8_t getOffset(byte &mode, int8_t &value);
+    uint8_t getTimerMode(uint8_t &value);
+    uint8_t getTimerValue(uint8_t &value);
+    uint8_t getOS(byte &value);
 
     PCF85063A(PCF85063A const &) = delete;
     void operator=(PCF85063A const &) = delete;
