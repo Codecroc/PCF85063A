@@ -45,17 +45,17 @@ public:
     /**
      * Setup I2C connection
     */
-    void begin();
+    bool begin();
 
     /**
      * Setup I2C connection with custom pins and frequency
     */
-    void begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency = 400000);
+    bool begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency = 400000);
 
     /**
      * End I2C connection
     */
-    void end();
+    bool end();
 
     /**
      * Set the time for the RTC
