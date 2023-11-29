@@ -30,19 +30,19 @@ uint8_t PCF85063A::setTime(uint8_t seconds, uint8_t minutes, uint8_t hours, uint
     Wire.beginTransmission(PCF85063A_ADDRESS);
     Wire.write(PCF85063A_REG_SECONDS);
     if (seconds > 59) seconds = 0;
-    Wire.write(this->decToBcd(seconds));
+    Wire.write(this->_decToBcd(seconds));
     if (minutes > 59) minutes = 0;
-    Wire.write(this->decToBcd(minutes));
+    Wire.write(this->_decToBcd(minutes));
     if (hours > 23) hours = 0;
-    Wire.write(this->decToBcd(hours));
+    Wire.write(this->_decToBcd(hours));
     if (days > 31) days = 0;
-    Wire.write(this->decToBcd(days));
+    Wire.write(this->_decToBcd(days));
     if (weekdays > 6) weekdays = PCF85063A_WEEKDAY_SUNDAY;
     Wire.write(weekdays);
     if (months > 12) months = 0;
-    Wire.write(this->decToBcd(months));
+    Wire.write(this->_decToBcd(months));
     if (years > 99) years = 0;
-    Wire.write(this->decToBcd(years));
+    Wire.write(this->_decToBcd(years));
     return Wire.endTransmission();
 }
 
@@ -52,13 +52,13 @@ uint8_t PCF85063A::setAlarm(uint8_t seconds, uint8_t minutes, uint8_t hours, uin
     Wire.beginTransmission(PCF85063A_ADDRESS);
     Wire.write(PCF85063A_REG_ALARM_SECONDS);
     if (seconds > 59) seconds = 0;
-    Wire.write(this->decToBcd(seconds) | 0b10000000);
+    Wire.write(this->_decToBcd(seconds) | 0b10000000);
     if (minutes > 59) minutes = 0;
-    Wire.write(this->decToBcd(minutes) | 0b10000000);
+    Wire.write(this->_decToBcd(minutes) | 0b10000000);
     if (hours > 23) hours = 0;
-    Wire.write(this->decToBcd(hours) | 0b10000000);
+    Wire.write(this->_decToBcd(hours) | 0b10000000);
     if (days > 31) days = 0;
-    Wire.write(this->decToBcd(days));
+    Wire.write(this->_decToBcd(days));
     if (weekdays > 6) weekdays = PCF85063A_WEEKDAY_SUNDAY;
     Wire.write(weekdays | 0b10000000);
     return Wire.endTransmission();
@@ -224,13 +224,13 @@ uint8_t PCF85063A::getTime(uint8_t &seconds, uint8_t &minutes, uint8_t &hours, u
 
     error = Wire.endTransmission();
     Wire.requestFrom(PCF85063A_ADDRESS, 7);
-    seconds = this->bcdToDec(Wire.read() & 0b01111111);
-    minutes = this->bcdToDec(Wire.read() & 0b01111111);
-    hours = this->bcdToDec(Wire.read() & 0b00111111);
-    days = this->bcdToDec(Wire.read() & 0b00111111);
+    seconds = this->_bcdToDec(Wire.read() & 0b01111111);
+    minutes = this->_bcdToDec(Wire.read() & 0b01111111);
+    hours = this->_bcdToDec(Wire.read() & 0b00111111);
+    days = this->_bcdToDec(Wire.read() & 0b00111111);
     weekdays = (PCF85063A_WEEKDAYS_t)(Wire.read() & 0b00000111);
-    months = this->bcdToDec(Wire.read() & 0b00011111);
-    years = this->bcdToDec(Wire.read() & 0b01111111);
+    months = this->_bcdToDec(Wire.read() & 0b00011111);
+    years = this->_bcdToDec(Wire.read() & 0b01111111);
     return error;
 }
 
