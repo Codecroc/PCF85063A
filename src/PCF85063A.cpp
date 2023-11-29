@@ -1,13 +1,13 @@
 #include "PCF85063A.hpp"
 
-void PCF85063A::begin()
+uint8_t PCF85063A::begin()
 {
-    Wire.begin();
+    return Wire.begin();
 }
 
-void PCF85063A::begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency)
+uint8_t PCF85063A::begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency)
 {
-    Wire.begin(sda, scl, frequency);
+    return Wire.begin(sda, scl, frequency);
 }
 
 void PCF85063A::end()
@@ -15,12 +15,12 @@ void PCF85063A::end()
     Wire.end();
 }
 
-uint8_t PCF85063A::decToBcd(uint8_t val)
+uint8_t PCF85063A::_decToBcd(uint8_t val)
 {
     return ( (val/10*16) + (val%10) );
 }
 
-uint8_t PCF85063A::bcdToDec(uint8_t val)
+uint8_t PCF85063A::_bcdToDec(uint8_t val)
 {
     return ( (val/16*10) + (val%16) );
 }
@@ -93,6 +93,14 @@ uint8_t PCF85063A::setTimerMode(uint8_t mode)
     return Wire.endTransmission();
 }
 
+uint8_t PCF85063A::setTimerValue(uint8_t value)
+{
+    Wire.beginTransmission(PCF85063A_ADDRESS);
+    Wire.write(PCF85063A_REG_TIMER_VALUE);
+    Wire.write(value);
+    return Wire.endTransmission();
+}
+
 uint8_t PCF85063A::setOffset(byte mode, int8_t offset)
 {
     Wire.beginTransmission(PCF85063A_ADDRESS);
@@ -159,7 +167,7 @@ uint8_t PCF85063A::getControl2(uint8_t &value)
     return error;
 }
 
-uint8_t PCF85063A::getOffset(byte &mode, int8_t &value)
+uint8_t PCF85063A::getOffset(uint8_t &mode, int8_t &value)
 {
     uint8_t error;
     Wire.beginTransmission(PCF85063A_ADDRESS);
@@ -196,7 +204,7 @@ uint8_t PCF85063A::getTimerValue(uint8_t &value)
     return error;
 }
 
-uint8_t PCF85063A::getOS(byte &value)
+uint8_t PCF85063A::getOS(uint8_t &value)
 {
     uint8_t error;
     Wire.beginTransmission(PCF85063A_ADDRESS);
@@ -204,7 +212,7 @@ uint8_t PCF85063A::getOS(byte &value)
 
     error = Wire.endTransmission();
     Wire.requestFrom(PCF85063A_ADDRESS, 1);
-    value = Wire.read() & 0b10000000;
+    value = ((Wire.read() & 0b10000000) >> 7);
     return error;
 }
 

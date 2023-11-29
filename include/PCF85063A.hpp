@@ -79,6 +79,11 @@ public:
     uint8_t setTimer(uint8_t timerValue, uint8_t timerMode);
 
     /**
+     * Set the timer value
+    */
+    uint8_t setTimerValue(uint8_t timerValue);
+
+    /**
      * * Mode Bit 0: timer interrupt mode -> 0: flag, 1: pulse
      * Mode Bit 1: timer interrupt enable -> 0: disable, 1: enable
      * Mode Bit 2: timer enable -> 0: disable, 1: enable
@@ -143,16 +148,16 @@ public:
     uint8_t getRam(uint8_t &value);
     uint8_t getControl1(uint8_t &value);
     uint8_t getControl2(uint8_t &value);
-    uint8_t getOffset(byte &mode, int8_t &value);
+    uint8_t getOffset(uint8_t &mode, int8_t &value);
     uint8_t getTimerMode(uint8_t &value);
     uint8_t getTimerValue(uint8_t &value);
-    uint8_t getOS(byte &value);
+    uint8_t getOS(uint8_t &value);
 
     PCF85063A(PCF85063A const &) = delete;
     void operator=(PCF85063A const &) = delete;
 
 private:
     PCF85063A(){};
-    uint8_t decToBcd(uint8_t val);
-    uint8_t bcdToDec(uint8_t val);
+    uint8_t _decToBcd(uint8_t val);
+    uint8_t _bcdToDec(uint8_t val);
 };
