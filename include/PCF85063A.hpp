@@ -41,21 +41,6 @@ public:
         PCF85063A_WEEKDAY_FRIDAY = 0b00000101,
         PCF85063A_WEEKDAY_SATURDAY = 0b00000110
     } PCF85063A_WEEKDAYS_t;
-    
-    /**
-     * Setup I2C connection
-    */
-    bool begin();
-
-    /**
-     * Setup I2C connection with custom pins and frequency
-    */
-    bool begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency = 400000);
-
-    /**
-     * End I2C connection
-    */
-    bool end();
 
     /**
      * Set the time for the RTC

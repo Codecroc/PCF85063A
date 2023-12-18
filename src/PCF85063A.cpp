@@ -1,20 +1,5 @@
 #include "PCF85063A.hpp"
 
-bool PCF85063A::begin()
-{
-    return Wire.begin();
-}
-
-bool PCF85063A::begin(gpio_num_t sda, gpio_num_t scl, uint32_t frequency)
-{
-    return Wire.begin(sda, scl, frequency);
-}
-
-bool PCF85063A::end()
-{
-    return Wire.end();
-}
-
 uint8_t PCF85063A::_decToBcd(uint8_t val)
 {
     return ( (val/10*16) + (val%10) );
